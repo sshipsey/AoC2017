@@ -4,6 +4,7 @@
   "dependencies": {
     "@types/node": "^8.0.53",
     "@types/ramda": "^0.25.6",
+    "lodash": "^4.17.4",
     "ramda": "^0.25.0",
     "ts-node": "^3.3.0",
     "tslint": "^5.8.0",
