@@ -1,10 +1,10 @@
-let _ = require('lodash');
+import * as _ from 'lodash';
 
 // Part 2 - Speed
-let solve = function(input: string): number {
-    let answer: number = 0;
+const solve = function(input: string): number {
+    let answer = 0;
 
-    for (let i: number = 0; i < input.length - 1; i++) {
+    for (let i = 0; i < input.length - 1; i++) {
         if (input[i] === input[(i + (input.length / 2)) % input.length]) {
             answer += +input[i];
         }
@@ -13,13 +13,21 @@ let solve = function(input: string): number {
 }
 
 // Part 2 - Clean
-let solveClean = function(input: string): number {
+const solveClean = function(input: string): number {
     let len: number = input.length;
     let inputArr: number[] = input.split('').map(v => +v);
-    return _.sum(_.intersection(inputArr, rotate(inputArr, len / 2)));
+    return _.sum(
+        _.zipWith(
+            inputArr, 
+            rotate(inputArr, len / 2), 
+            (a: number, b: number): number => { 
+                return (a === b ? a : 0); 
+            }
+        )
+    );
 }
 
-let rotate = function(input: any[], n: number): any[] {
+const rotate = <T>(input: T[], n: number): T[] => {
     return _.concat(_.takeRight(input, n), _.take(input, n));
 }
 
