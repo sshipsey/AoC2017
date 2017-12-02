@@ -5,7 +5,7 @@ const part1 = (input: string): number => {
     const rows = input.split('\n');
     let checkSums: number[] = [];
     for (let i = 0; i < rows.length; i++) {
-        checkSums.push(Math.max.apply(null, rows[i].split(/ |\t/).map(v => +v)) - Math.min.apply(null, rows[i].split(/ |\t/).map(v => +v)));
+        checkSums.push(Math.max(...rows[i].split(/ |\t/).map(v => +v)) - Math.min(...rows[i].split(/ |\t/).map(v => +v)));
     }
     return _.sum(checkSums);
 }
