@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import { getCombinations } from './global_functions';
 
 // Speed Part 1
 const part1 = (input: string): number => {
@@ -50,17 +51,6 @@ const cleanSolve = (input: string): number => {
         .map(c => c[0] / c[1])
     );
 
-}
-
-const getCombinations = <T>(combinations: T[][], current: T[], depth: number, ...arrays: T[][]) => {
-    if (depth === arrays.length) {
-        combinations.push(current);
-        return;
-    }
-
-    _.each(arrays[depth], (arr) => 
-        getCombinations<T>(combinations, _.concat(current, arr), depth + 1, ...arrays)
-    );
 }
 
 const input = `4347	3350	196	162	233	4932	4419	3485	4509	4287	4433	4033	207	3682	2193	4223
