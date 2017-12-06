@@ -4,36 +4,36 @@ import { getCombinations } from './global_functions';
 // Speed Part 1
 const part1 = (input: string): number => {
     const rows = input.split('\n');
-    let checkSums: number[] = [];
-    for (let i = 0; i < rows.length; i++) {
-        checkSums.push(Math.max(...rows[i].split(/ |\t/).map(v => +v)) - Math.min(...rows[i].split(/ |\t/).map(v => +v)));
+    const checkSums: number[] = [];
+    for (const row of rows) {
+        checkSums.push(Math.max(...row.split(/ |\t/).map(v => +v)) - Math.min(...row.split(/ |\t/).map(v => +v)));
     }
     return _.sum(checkSums);
-}
+};
 
 // Speed Part 2
 const part2 = (input: string): number => {
     const rows = input.split('\n');
-    let checkSums: number[] = [];
-    let row: number[] = [];
+    const checkSums: number[] = [];
+    let curRow: number[] = [];
 
-    for (let i = 0; i < rows.length; i++) {
-        row = rows[i].split(/ |\t/).map(v => +v);
+    for (const row of rows) {
+        curRow = row.split(/ |\t/).map(v => +v);
 
         for (let j = 0; j < row.length; j++) {
             for (let k = 0; k < row.length; k++) {
-                if (j === k) continue;
-                if (row[j] % row[k] === 0) {
-                    checkSums.push(row[j] / row[k]);
+                if (j === k) { continue; }
+                if (curRow[j] % curRow[k] === 0) {
+                    checkSums.push(curRow[j] / curRow[k]);
                 }
-                if (row[k] % row[j] === 0) {
-                    checkSums.push(row[k] / row[j]);
+                if (curRow[k] % curRow[j] === 0) {
+                    checkSums.push(curRow[k] / curRow[j]);
                 }
             }
         }
     }
     return _.sum(checkSums);
-}
+};
 
 // Clean - Part 1 + 2
 const cleanSolve = (input: string): number => {
@@ -43,17 +43,15 @@ const cleanSolve = (input: string): number => {
         .map(row => {
             let combinations: number[][] = [];
             getCombinations(combinations, [], 0, row, row);
-            combinations = _.filter(combinations, c => 
-            c[0] != c[1] && c[0] % c[1] === 0
+            combinations = _.filter(combinations, c =>
+            c[0] !== c[1] && c[0] % c[1] === 0,
             );
             return combinations[0];
         })
-        .map(c => c[0] / c[1])
-    );
+        .map(c => c[0] / c[1]));
+};
 
-}
-
-const input = `4347	3350	196	162	233	4932	4419	3485	4509	4287	4433	4033	207	3682	2193	4223
+const inp = `4347	3350	196	162	233	4932	4419	3485	4509	4287	4433	4033	207	3682	2193	4223
 648	94	778	957	1634	2885	1964	2929	2754	89	972	112	80	2819	543	2820
 400	133	1010	918	1154	1008	126	150	1118	117	148	463	141	940	1101	89
 596	527	224	382	511	565	284	121	643	139	625	335	657	134	125	152
@@ -70,4 +68,4 @@ const input = `4347	3350	196	162	233	4932	4419	3485	4509	4287	4433	4033	207	3682
 401	151	309	961	124	1027	1084	389	1150	166	1057	137	932	669	590	188
 784	232	363	316	336	666	711	430	192	867	628	57	222	575	622	234`;
 
-console.log(cleanSolve(input));
+console.log(cleanSolve(inp));

@@ -7,13 +7,13 @@ const part1 = (input: string) => {
     let nextMove = 0;
     let count = 0;
     while (ptr >= 0 && ptr < inst.length) {
-        nextMove = inst[ptr]
+        nextMove = inst[ptr];
         inst[ptr] += 1;
         ptr += nextMove;
         count++;
     }
-    return count; 
-}
+    return count;
+};
 
 // Part 2 - Speed
 const part2 = (input: string) => {
@@ -22,7 +22,7 @@ const part2 = (input: string) => {
     let nextMove = 0;
     let count = 0;
     while (ptr >= 0 && ptr < inst.length) {
-        nextMove = inst[ptr]
+        nextMove = inst[ptr];
         if (inst[ptr] >= 3) {
             inst[ptr] -= 1;
         } else {
@@ -32,9 +32,9 @@ const part2 = (input: string) => {
         count++;
     }
     return count;
-}
+};
 
-const input: string = `0
+const inp = `0
 0
 0
 1
@@ -1125,5 +1125,5 @@ const input: string = `0
 -913
 -858`;
 
-console.log(part1(input));
-console.log(part2(input));
+console.log(part1(inp));
+console.log(part2(inp));

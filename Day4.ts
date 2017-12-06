@@ -4,28 +4,28 @@ import * as _ from 'lodash';
 const part1 = (input: string) => {
     const rows = input.split('\n');
     let valids = 0;
-    for (let i = 0; i < rows.length; i++) {
-        if (rows[i].split(' ').length == _.uniq(rows[i].split(' ')).length) {
+    for (const row of rows) {
+        if (row.split(' ').length === _.uniq(row.split(' ')).length) {
             valids++;
         }
     }
     return valids;
-}
+};
 
 // Part 2 - Speed
 const part2 = (input: string) => {
     const rows = input.split('\n');
     let valids = 0;
-    for (let i = 0; i < rows.length; i++) {
-        let r = rows[i].split(' ').map(v => v.split('').sort().toString());
-        if (r.length == _.uniq(r).length) {
+    for (const row of rows) {
+        const r = row.split(' ').map(v => v.split('').sort().toString());
+        if (r.length === _.uniq(r).length) {
             valids++;
         }
     }
     return valids;
-}
+};
 
-const input: string = `una bokpr ftz ryw nau yknf fguaczl anu
+const inp = `una bokpr ftz ryw nau yknf fguaczl anu
 tvay wvco bcoblpt fwzg sfsys zvuqll mcbhwz ovcw fgdy
 ynsocz vid rfmsy essqt fpbjvvq sldje qfpvjvb
 yvh nxc kla vhy vkbq cxfzgr
@@ -538,5 +538,5 @@ huo esajup ouj oju ujo
 eeeu hwvsk jfkmds okhi pogskfm itdlbll
 lpyubo dylpfb iehwug decj ntidy cuygyg lalkb iutu oxgm imn`;
 
-console.log(part1(input));
-console.log(part2(input));
+console.log(part1(inp));
+console.log(part2(inp));
