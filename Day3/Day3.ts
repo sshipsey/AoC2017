@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import * as global from './global_functions';
+import * as global from '../global_functions';
 
 // Part 1: Speed
 const part1 = (input: number) => {

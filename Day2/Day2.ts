@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { getCombinations } from './global_functions';
+import { getCombinations } from '../global_functions';
 
 // Speed Part 1
 const part1 = (input: string): number => {

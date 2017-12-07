@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { rotate } from './global_functions';
+import { rotate } from '../global_functions';
 
 // Part 2 - Speed
 const solve = (input: string) => {
