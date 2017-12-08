@@ -1,31 +1,82 @@
+/* tslint:disable */
 import * as _ from 'lodash';
+
 interface Vars {
-    [key: string]: number;
+   [key: string]: number;
 }
+
 const part1 = (input: string) => {
-    input = input.replace('inc', '+=')
-        .replace('dec', '-=');
+    input = input.replace(/inc/g, '+=')
+        .replace(/dec/g, '-=');
     const rows = input.split('\n');
     const evalRows: string[][] = [];
-    const map: Vars = {};
-    const getMap = (key: string) {
-        if (map[key] !== undefined) {
-            map[key] = 0;
-        }
-    };
+    var map: Vars = {};
+
+    for (const r of rows) {
+        let strArr = r.split(' ');
+
+        eval('map["' + strArr[0] + '"] = 0;');
+    
+        eval('map["' + strArr[4] + '"] = 0;');
+    }
+
     for (let i = 0; i < rows.length; i++) {
         evalRows.push(rows[i].split(' if ')
         .concat('if( ')
         .reverse());
 
-        evalRows[i].splice(2, 0, ' ) {');
+        evalRows[i].splice(2, 0, ' ) { map["');
 
-        rows[i] = evalRows[i].join('').concat(';}');
+        evalRows[i] = evalRows[i].join('').concat(';}').split(' ');
+        evalRows[i].splice(7, 0, '"] ');
+        evalRows[i].splice(2, 0, '"]');
+        evalRows[i].splice(1, 0, 'map["');
+
+        rows[i] = evalRows[i].join('');
+
+        eval(rows[i]);
     }
+
+    return _.max(_.map(Object.keys(map), v => map[v]));
 };
 
 const part2 = (input: string) => {
+    input = input.replace(/inc/g, '+=')
+    .replace(/dec/g, '-=');
+    const rows = input.split('\n');
+    const evalRows: string[][] = [];
+    var map: Vars = {};
 
+    for (const r of rows) {
+        let strArr = r.split(' ');
+
+        eval('map["' + strArr[0] + '"] = 0;');
+
+        eval('map["' + strArr[4] + '"] = 0;');
+    }
+    let maxVal = 0;
+    let curVar = '';
+    for (let i = 0; i < rows.length; i++) {
+        evalRows.push(rows[i].split(' if ')
+        .concat('if( ')
+        .reverse());
+
+        evalRows[i].splice(2, 0, ' ) { map["');
+
+        evalRows[i] = evalRows[i].join('').concat(';}').split(' ');
+        evalRows[i].splice(7, 0, '"] ');
+        evalRows[i].splice(2, 0, '"]');
+        evalRows[i].splice(1, 0, 'map["');
+        curVar = evalRows[i][8] + evalRows[i][9];
+        if (eval(curVar) > maxVal) {
+            maxVal = eval(curVar);
+        }
+        rows[i] = evalRows[i].join('');
+
+        eval(rows[i]);
+    }
+
+    return maxVal;
 };
 
 const inp = `y inc 497 if n <= 3
@@ -1030,4 +1081,4 @@ wby inc -397 if ntk >= -2941
 nm dec 907 if qen == 2233`;
 
 console.log(part1(inp));
-console.log(part1(inp));
+console.log(part2(inp));

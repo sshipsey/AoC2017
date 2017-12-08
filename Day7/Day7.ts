@@ -25,13 +25,13 @@ const part1 = (input: string) => {
     }
 };
 
-// wrong wrong wrong
+// Part 2 - Bad
 const part2 = (input: string) => {
 
     const root = part1(input);
     const programs = _.orderBy(input.replace(/,|\)|\(/g, '').split('\n'), p => p.length).map(p => p.split(' '));
     const weights: Weights = {};
-    const rootProg = (_.nth(_.find(programs, p => p[0] === root), 0)) || '';
+    let rootProg = (_.nth(_.find(programs, p => p[0] === root), 0)) || '';
     const progMap: Program = {};
 
     for (const p of programs) {
@@ -46,16 +46,30 @@ const part2 = (input: string) => {
         return (weights[n]) + _.sum(_.map(progMap[n], p => compressNode(p)));
     };
 
-    let program: any;
-    const length = (n: any[]) => n.length;
-    while (_.uniq(_.map(progMap[rootProg], n => compressNode(n))).length > 1) {
-        program = _.countBy(_.map(progMap[rootProg], n => compressNode(n)));
-        _.max(_.groupBy(program, length)!);
+    let weightDiff = 0;
+    while (_.uniq(_.map(progMap[rootProg], a => compressNode(a))).length > 1) {
+        const vals = _.map(progMap[rootProg], n => compressNode(n));
+        const names = _.map(progMap[rootProg], c => c);
+        rootProg = names[_.indexOf(vals, leastFrequent(vals))];
+
+        weightDiff = leastFrequent(vals) - mostFrequent(vals);
     }
-    console.log();
+
+    return weights[rootProg] - weightDiff;
 };
 
-/*
+const leastFrequent = (array: number[]) => {
+    const map = array.map((a) => array.filter((b) => a === b).length);
+
+    return array[_.indexOf(map, _.min(map))];
+};
+
+const mostFrequent = (array: number[]) => {
+    const map = array.map((a) => array.filter((b) => a === b).length);
+
+    return array[_.indexOf(map, _.max(map))];
+};
+
 const inp = `jlbcwrl (93)
 fzqsahw (256) -> lybovx, pdmhva
 rxivjo (206) -> mewof, hrncqs, qgfstpq
@@ -1337,8 +1351,8 @@ cgfykiv (38)
 tygnc (13) -> ucxedq, jgwvp, kgevjdx
 ojhlp (137) -> zqnul, vmvxwar, cgfykiv
 hpuyku (82)`;
-*/
 
+/*
 const inp = `pbga (66)
 xhth (57)
 ebii (61)
@@ -1352,6 +1366,6 @@ jptl (61)
 ugml (68) -> gyxo, ebii, jptl
 gyxo (61)
 cntj (57)`;
-
+*/
 console.log(part1(inp));
 console.log(part2(inp));
