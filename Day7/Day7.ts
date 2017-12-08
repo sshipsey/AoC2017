@@ -45,8 +45,12 @@ const part2 = (input: string) => {
         }
         return (weights[n]) + _.sum(_.map(progMap[n], p => compressNode(p)));
     };
+
+    let program: any;
+    const length = (n: any[]) => n.length;
     while (_.uniq(_.map(progMap[rootProg], n => compressNode(n))).length > 1) {
-        
+        program = _.countBy(_.map(progMap[rootProg], n => compressNode(n)));
+        _.max(_.groupBy(program, length)!);
     }
     console.log();
 };

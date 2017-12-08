@@ -1,2 +1,2 @@
 NB. Part 1
-+/(>./-<./)"1 ".&> cutLF CR-.~fread 'input.txt'
++/(>./-<./)"1 i=. ".&> cutLF CR-.~fread 'input.txt'
