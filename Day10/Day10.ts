@@ -26,7 +26,7 @@ const part1 = (input: string) => {
 };
 
 // Part 2 - Speed
-const part2 = (input: string) => {
+export const day10part2 = (input: string) => {
     let ptr = 0;
     let lengths = input.split('').map(v => v.charCodeAt(0)).concat([17, 31, 73, 47, 23]);
     let arr = _.range(0, 256);
@@ -34,17 +34,17 @@ const part2 = (input: string) => {
     let skipSize = 0;
     
     for (let rounds = 0; rounds < 64; rounds++) {
-        for (let i = 0; i < lengths.length; i++) {       
+        for (let l of lengths) {       
 
-            for (let j = 0; j < lengths[i]; j++) {
+            for (let j = 0; j < l; j++) {
                 subArr.push(arr[(ptr + j) % arr.length]);
             }
 
-            for (let k = 0; k < lengths[i]; k++) {
+            for (let k = 0; k < l; k++) {
                 arr[(ptr + k) % arr.length] = subArr.pop() || 0;
             }
 
-            ptr += (lengths[i] + skipSize) % arr.length;
+            ptr += (l + skipSize) % arr.length;
             skipSize += 1;
         }
     }
@@ -59,4 +59,4 @@ const part2 = (input: string) => {
 
 const inp = `165,1,255,31,87,52,24,113,0,91,148,254,158,2,73,153`;
 console.log(part1(inp));
-console.log(part2(inp));
+console.log(day10part2(inp));
