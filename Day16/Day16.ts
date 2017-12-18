@@ -31,12 +31,7 @@ const doDanceMove = (str: string, moves: string) => {
 };
 
 const part1 = (str: string, moves: string) => {
-
-    for (const mv of moves.split(',')) {
-        str = parseMove(str, mv) || '';
-    }
-
-    return str;
+    return doDanceMove(str, moves);
 };
 
 const part2 = (str: string, moves: string) => {
@@ -60,6 +55,6 @@ const part2 = (str: string, moves: string) => {
     const initial = `abcdefghijklmnop`;
     console.log(`Part 1 - Sample Input: ${part1(`abcde`, testInp)}`);
     console.log(`Part 1 - Real Input: ${part1(initial, inp)}`);
-    console.log(`Part 2 - Sample Input: ${part2(`abcde`, testInp)}`);
+
     console.log(`Part 2 - Real Input: ${part2(initial, inp)}`);
 })();
