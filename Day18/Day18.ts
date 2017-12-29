@@ -99,7 +99,7 @@ const part2 = (input: string) => {
                 p1Locked = false;
                 break;
             case 'jgz':
-                if (lookup0.get(varNames[0]) || 0 > 0) {
+                if (varNames[0] === '1' || (lookup0.get(varNames[0]) || 0) > 0) {
                     ptr0 += numsValue[0];
                 } else {
                     ptr0 += 1;
@@ -139,7 +139,7 @@ const part2 = (input: string) => {
                 p0Locked = false;
                 break;
             case 'jgz':
-                if (lookup1.get(varNames[1]) || 0 > 0) {
+                if (varNames[1] === '1' || (lookup1.get(varNames[1]) || 0) > 0) {
                     ptr1 += numsValue[1];
                 } else {
                     ptr1 += 1;
@@ -153,7 +153,7 @@ const part2 = (input: string) => {
 };
 
 (async () => {
-    const inp = await promisify(readFile)('day17/input.txt', 'utf8');
+    const inp = await promisify(readFile)('day18/input.txt', 'utf8');
     const testInp = `set a 1
 add a 2
 mul a a
