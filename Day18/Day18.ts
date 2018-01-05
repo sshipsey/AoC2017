@@ -69,7 +69,7 @@ const part2 = (input: string) => {
         nums.push(ops[0] !== 'snd' ? inpArr[ptr0].split(' ')[2] : inpArr[ptr0].split(' ')[1]);
         nums.push(ops[1] !== 'snd' ? inpArr[ptr1].split(' ')[2] : inpArr[ptr1].split(' ')[1]);
         const numsValue = [isNaN(nums[0] as any) ? (lookup0.get(nums[0]) || 0) : +nums[0],
-                          isNaN(nums[1] as any) ? (lookup1.get(nums[1]) || 0) : +nums[1]];
+                           isNaN(nums[1] as any) ? (lookup1.get(nums[1]) || 0) : +nums[1]];
 
         switch (ops[0]) {
             case 'set':
@@ -99,11 +99,12 @@ const part2 = (input: string) => {
                 p1Locked = false;
                 break;
             case 'jgz':
-                if (lookup0.get(varNames[0]) || 0 > 0) {
+                if (lookup0.get(varNames[0]) || 0 > 0 || !isNaN(varNames[0] as any)) {
                     ptr0 += numsValue[0];
                 } else {
                     ptr0 += 1;
                 }
+
                 break;
         }
         if (ops[0] !== 'jgz') {
@@ -139,7 +140,7 @@ const part2 = (input: string) => {
                 p0Locked = false;
                 break;
             case 'jgz':
-                if (lookup1.get(varNames[1]) || 0 > 0) {
+                if (lookup0.get(varNames[1]) || 0 > 0 || !isNaN(varNames[1] as any)) {
                     ptr1 += numsValue[1];
                 } else {
                     ptr1 += 1;
@@ -153,7 +154,7 @@ const part2 = (input: string) => {
 };
 
 (async () => {
-    const inp = await promisify(readFile)('day17/input.txt', 'utf8');
+    const inp = await promisify(readFile)('day18/input.txt', 'utf8');
     const testInp = `set a 1
 add a 2
 mul a a
